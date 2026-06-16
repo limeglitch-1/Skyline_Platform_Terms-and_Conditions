@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الشروط والأحكام - Skyline</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #222;
+        }
+
+        /* Header */
+        header {
+            background: #ffffff; 
+            padding: 0 30px; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+            height: 65px; 
+            gap: 15px;
+        }
+
+        .logo-container {
+            height: 65px;
+            display: flex;
+            align-items: center;
+        }
+
+        .Logo {
+            height: 65px; 
+            max-height: 100%;
+            object-fit: contain;
+            padding: 2px 0;
+            box-sizing: border-box;
+        }
+
+        /* شريط البحث المطور */
+        .search-bar-container {
+            display: flex;
+            align-items: center;
+            background-color: #f1f3f5;
+            border-radius: 6px;
+            height: 40px;
+            max-width: 550px;
+            flex: 1;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* المربع الأخضر وبداخله أيقونة البحث في أقصى اليمين */
+        .search-btn-green {
+            background-color: #00E676; 
+            border: none;
+            outline: none;
+            color: white;
+            width: 45px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 16px;
+        }
+
+        .search-btn-green:hover {
+            background-color: #00c853;
+        }
+
+        /* حقل الكتابة للبحث اليدوي */
+        .search-input {
+            background: transparent;
+            border: none;
+            outline: none;
+            padding: 0 15px;
+            width: 100%;
+            font-size: 14px;
+            color: #2d3748;
+        }
+
+        /* المنيو في الجانب الأيسر مع السهم والخط الفاصل */
+        .menu-dropdown-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            height: 100%;
+            background: transparent;
+            padding: 0 15px;
+            border-right: 1px solid #cbd5e1; 
+        }
+
+        .menu-dropdown {
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 14px;
+            color: #4a5568;
+            cursor: pointer;
+            font-weight: 600;
+            appearance: none; 
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            padding-left: 25px; 
+            height: 100%;
+        }
+
+        /* تلوين الخيار الافتراضي بالرمادي */
+        .menu-dropdown option:disabled {
+            color: #a0aec0;
+        }
+
+        /* السهم المخصص للمنيو */
+        .menu-dropdown-wrapper::after {
+            content: '\f107';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #4a5568;
+            pointer-events: none;
+            font-size: 14px;
+        }
+
+        /* تصميم زر التحميل الأسود */
+        .download-btn-black {
+            background: #111111; 
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px 20px;
+            border-radius: 8px; 
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: 0.2s ease;
+            border: none;
+            white-space: nowrap;
+        }
+
+        .download-btn-black:hover {
+            background: #222222; 
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .Play {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+            position: relative;
+        }
+
+        .container h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+            color: #00E676;
+        }
+
+        .container h2 {
+            margin-top: 25px;
+            margin-bottom: 10px;
+            font-size: 20px;
+            color: #333;
+            scroll-margin-top: 85px; 
+        }
+
+        .container p {
+            line-height: 1.9;
+            margin-bottom: 15px;
+            font-size: 16px;
+            white-space: pre-line;
+        }
+
+        /* ستايل تمييز النصوص عند البحث */
+        .highlight {
+            background-color: #ffeb3b;
+            color: #000;
+            border-radius: 2px;
+            padding: 0 2px;
+            transition: background-color 0.2s;
+        }
+
+        /* ستايل خاص للكلمة النشطة حالياً */
+        .highlight.active-match {
+            background-color: #ff9800;
+            color: #fff;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 0 10px;
+                height: auto;
+                min-height: 65px;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+
+            .search-bar-container {
+                order: 3;
+                max-width: 100%;
+                width: 100%;
+                margin-top: 5px;
+            }
+
+            .container {
+                margin: 20px 15px;
+                padding: 25px;
+            }
+
+            .Logo {
+                height: 50px;
+            }
+            
+            .download-btn-black {
+                padding: 8px 14px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="https://play.google.com/store/apps/details?id=com.limeglitch.skyline" target="_blank" class="download-btn-black" id="downloadBtn">
+        <img src="Play.png" class="Play" alt="Play Store Icon">
+        <span>تحميل التطبيق</span>
+    </a>
+    
+    <div class="search-bar-container">
+        <button class="search-btn-green" id="searchBtn">
+            <i class="fas fa-search"></i>
+        </button>
+        
+        <input type="text" id="searchInput" class="search-input" placeholder="ابحث في الشروط...">
+        
+        <div class="menu-dropdown-wrapper">
+            <select class="menu-dropdown" id="menuDropdown">
+                <option value="" disabled selected style="color: #a0aec0;">الشروط والأحكام</option>
+                <option value="aboutSection">حول التطبيق</option>
+                <option value="noticeSection">تنويه هام</option>
+                <option value="termsSection">الشروط وسياسة الاستخدام</option>
+                <option value="violationsSection">إجراءات المخالفات</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="logo-container">
+        <img src="Logo.png" class="Logo" alt="Skyline Logo">
+    </div>
+</header>
+
+<div class="container" id="contentContainer">
+    <h1>الشروط والأحكام</h1>
+
+    <h2 id="aboutSection">حول التطبيق:-</h2>
+    <p>تطبيق Skyline هو منصة تواصل إلكترونية تتيح للمستخدمين التواصل معاً بكل سرية وأمان، ولا يمكن للقائمين على التطبيق رؤية مقاطع الفيديو والصور الشخصية التي يرسلها المستخدمون فيما بينهم، وتتيح للمستخدم إنشاء مجموعات وقنوات، كما تتيح له نشر النصوص والقصص والصور ومقاطع الفيديو للعلن وحصد المتابعين.</p>
+
+    <h2 id="noticeSection">تنويه هام:-</h2>
+    <p>لا تقبل المنصة بنشر أو بيع أي بيانات شخصية خاصة بمستخدميها أو استخدامها للإعلانات.
+تطبيق Skyline ليس تطبيقاً للتعارف وإقامة العلاقات، بل هو منصة تفاعلية تتيح للمستخدمين التعبير عن آرائهم الشخصية ونشر محتواهم بحرية تامة بدون أي قيود في إطار القوانين والضوابط المحددة، مع الالتزام الكامل بالحفاظ على خصوصية وأمان بيانات المستخدمين.</p>
+
+    <h2 id="termsSection">الشروط وسياسة الاستخدام:-</h2>
+    <p>يلتزم جميع المستخدمين بالامتثال التام للضوابط والقوانين التالية:
+
+1 - يُحظر تماماً نشر أو تداول أي محتوى إباحي أو مخصص للبالغين (+18) أو يخدش الحياء العام.
+2 - يُمنع استخدام المنصة لأغراض التعارف، أو الترويج للسهرات، أو أي أنشطة غير لائقة أخلاقياً.
+3 - يُحظر الترويج لألعاب القمار، أو المراهنات، أو أي أنشطة مشابهة بهدف النصب والاحتيال.
+4 - يُمنع منعاً باتاً استخدام المنصة للتهديد، أو الابتزاز, أو النصب، أو القيام بأي عمليات احتيالية.
+5 - يُحظر التزوير، أو نشر معلومات مضللة، أو التلاعب بالحقائق بهدف الخداع والغش.
+6 - يُمنع نشر أي محتوى إرهابي، أو متطرف، أو يحرض على العنف والكراهية.
+7 - يُحظر الإساءة إلى الأديان، أو المعتقدات، أو الرموز الدينية بأي شكل من الأشكال.
+8 - يُمنع نشر صور أو مقاطع فيديو أو الترويج لأي محتوى أو نشر روابط تتعلق بشبكات الإنترنت المظلم (Dark Web) أو (Deep Web).
+9 - يُحظر نشر أرقام الهواتف، أو العناوين، أو البيانات الشخصية للآخرين بهدف التشهير أو الإزعاج والتهديد.
+10 - يُمنع تماماً انتحال هوية أي شخص آخر أو جهة حكومية أو خاصة.
+11 - يُحظر نشر أي محتوى ينتهك حقوق الملكية الفكرية أو حقوق النشر والتأليف.
+12 - يحق للمنصة تغيير أو تعديل هذه الشروط في أي وقت دون إشعار مسبق.
+13 - Skyline منصة خاصة وليست تابعة لأي قطاع حكومي، وفي حالة موافقتك على شروط الاستخدام فيمنع رفع أي قضية على التطبيق أو حتى على الشركة الخاصة به.</p>
+
+    <h2 id="violationsSection">إجراءات التعامل والأحكام مع المخالفات:-</h2>
+    <p>تحتفظ إدارة Skyline بالحق الكامل في حذف أي محتوى، أو تعليق حساب يخالف هذه الشروط دون الحاجة إلى إشعار مسبق. كما يحق للإدارة اتخاذ إجراءات إضافية تشمل الإيقاف المؤقت أو الحظر النهائي لأي مستخدم يتجاوز هذه الضوابط، وذلك حفاظاً على أمان ونزاهة مجتمع التطبيق.</p>
+
+</div>
+
+<footer>
+    © 2026 LIME GLITCH - جميع الحقوق محفوظة
+</footer>
+
+<script>
+    const paragraphs = document.querySelectorAll('#contentContainer p, #contentContainer h2, #contentContainer h1');
+    const originalTexts = Array.from(paragraphs).map(el => el.innerHTML);
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchBtn');
+
+    let currentMatchIndex = -1;
+    let totalMatches = [];
+
+    // 1. منطق البحث وتحديد الكلمات فورياً أثناء الكتابة
+    searchInput.addEventListener('input', function() {
+        const textToSearch = this.value.trim();
+        
+        paragraphs.forEach((el, index) => {
+            el.innerHTML = originalTexts[index];
+        });
+
+        currentMatchIndex = -1;
+        totalMatches = [];
+
+        if (textToSearch === '') return;
+
+        const regex = new RegExp(`(${escapeRegExp(textToSearch)})`, 'gi');
+
+        paragraphs.forEach((el) => {
+            if (el.textContent.includes(textToSearch)) {
+                el.innerHTML = el.innerHTML.replace(regex, `<span class="highlight">$1</span>`);
+            }
+        });
+
+        totalMatches = Array.from(document.querySelectorAll('.highlight'));
+
+        if (totalMatches.length > 0) {
+            currentMatchIndex = 0;
+            navigateToMatch(currentMatchIndex);
+        }
+    });
+
+    // 2. منطق زر البحث للذهاب مباشرة للنتيجة التالية عند الضغط عليه
+    searchBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        if (totalMatches.length === 0) return;
+
+        if (currentMatchIndex >= 0 && totalMatches[currentMatchIndex]) {
+            totalMatches[currentMatchIndex].classList.remove('active-match');
+        }
+
+        currentMatchIndex++;
+
+        if (currentMatchIndex >= totalMatches.length) {
+            currentMatchIndex = 0;
+        }
+
+        navigateToMatch(currentMatchIndex);
+    });
+
+    function navigateToMatch(index) {
+        if (totalMatches[index]) {
+            totalMatches[index].classList.add('active-match');
+            totalMatches[index].scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        }
+    }
+
+    function escapeRegExp(string) {
+        return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    // 3. برمجة المنيو للانتقال السلس للأقسام
+    const menuDropdown = document.getElementById('menuDropdown');
+    menuDropdown.addEventListener('change', function() {
+        const targetId = this.value;
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+            targetElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+
+    // 4. حركات زر التحميل التفاعلية
+    const btn = document.getElementById("downloadBtn");
+    btn.addEventListener("mousedown", () => { btn.style.transform = "scale(0.96)"; });
+    btn.addEventListener("mouseup", () => { btn.style.transform = "scale(1)"; });
+    btn.addEventListener("mouseleave", () => { btn.style.transform = "scale(1)"; });
+</script>
+
+</body>
+</html>
