@@ -17,6 +17,7 @@
         body {
             background-color: #f5f7fa;
             color: #222;
+            overflow-x: hidden; /* لمنع أي اهتزاز أو تمرير عرضي غير مرغوب فيه */
         }
 
         /* Header */
@@ -48,7 +49,7 @@
             box-sizing: border-box;
         }
 
-        /* شريط البحث المطور */
+        /* شريط البحث المطور - مرن ومتوافق */
         .search-bar-container {
             display: flex;
             align-items: center;
@@ -61,7 +62,7 @@
             border: 1px solid #e2e8f0;
         }
 
-        /* المربع الأخضر وبداخله أيقونة البحث في أقصى اليمين */
+        /* المربع الأخضر وبداخله أيقونة البحث */
         .search-btn-green {
             background-color: #00E676; 
             border: none;
@@ -75,6 +76,7 @@
             cursor: pointer;
             transition: background 0.2s;
             font-size: 16px;
+            flex-shrink: 0; /* يمنع انضغاط الزر في الشاشات الصغيرة */
         }
 
         .search-btn-green:hover {
@@ -101,6 +103,7 @@
             background: transparent;
             padding: 0 15px;
             border-right: 1px solid #cbd5e1; 
+            flex-shrink: 0;
         }
 
         .menu-dropdown {
@@ -118,12 +121,10 @@
             height: 100%;
         }
 
-        /* تلوين الخيار الافتراضي بالرمادي */
         .menu-dropdown option:disabled {
             color: #a0aec0;
         }
 
-        /* السهم المخصص للمنيو */
         .menu-dropdown-wrapper::after {
             content: '\f107';
             font-family: 'Font Awesome 5 Free';
@@ -153,6 +154,7 @@
             transition: 0.2s ease;
             border: none;
             white-space: nowrap;
+            flex-shrink: 0;
         }
 
         .download-btn-black:hover {
@@ -170,7 +172,7 @@
         /* Main Content */
         .container {
             max-width: 900px;
-            margin: 60px auto;
+            margin: 40px auto;
             background: #fff;
             padding: 40px;
             border-radius: 16px;
@@ -190,7 +192,7 @@
             margin-bottom: 10px;
             font-size: 20px;
             color: #333;
-            scroll-margin-top: 85px; 
+            scroll-margin-top: 130px; /* تم زيادتها لتناسب الهيدر الممتد في الموبايل */
         }
 
         .container p {
@@ -209,7 +211,6 @@
             transition: background-color 0.2s;
         }
 
-        /* ستايل خاص للكلمة النشطة حالياً */
         .highlight.active-match {
             background-color: #ff9800;
             color: #fff;
@@ -223,36 +224,91 @@
             font-size: 14px;
         }
 
+        /* =======================================================
+           تعديلات التوافق الكامل مع جميع الشاشات والأجهزة الهواتف والتابلت
+           ======================================================= */
         @media (max-width: 768px) {
             header {
-                padding: 0 10px;
-                height: auto;
+                padding: 10px 15px;
+                height: auto; /* السماح للهيدر بالتمدد الرأسي لاحتواء العناصر */
                 min-height: 65px;
-                flex-wrap: wrap;
+                flex-wrap: wrap; /* السماح بنزول شريط البحث لسطر جديد */
                 justify-content: space-between;
-                padding-top: 10px;
-                padding-bottom: 10px;
+                gap: 10px;
             }
 
+            /* نزول شريط البحث أسفل الزر واللوغو ليأخذ العرض الكامل بشكل مريح */
             .search-bar-container {
                 order: 3;
                 max-width: 100%;
                 width: 100%;
                 margin-top: 5px;
+                height: 42px; /* زيادة الطول قليلاً ليسهل اللمس على الهواتف */
             }
 
+            .search-input {
+                padding: 0 10px;
+                font-size: 13px;
+            }
+
+            .menu-dropdown-wrapper {
+                padding: 0 10px;
+            }
+
+            .menu-dropdown {
+                font-size: 13px;
+                padding-left: 20px;
+            }
+
+            /* ضبط حجم حاوية النصوص لتناسب الشاشات الصغيرة وبدون حواف ضخمة */
             .container {
-                margin: 20px 15px;
-                padding: 25px;
+                margin: 20px 12px;
+                padding: 20px;
+                border-radius: 12px;
+            }
+
+            .container h1 {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+
+            .container h2 {
+                font-size: 18px;
+                scroll-margin-top: 135px; /* ضبط مسافة الـ Scroll لتفادي الغطاء */
+            }
+
+            .container p {
+                font-size: 14.5px;
+                line-height: 1.8;
             }
 
             .Logo {
-                height: 50px;
+                height: 45px; /* تقليص حجم اللوغو قليلاً ليتناسب مع الموبايل */
             }
             
             .download-btn-black {
                 padding: 8px 14px;
                 font-size: 12px;
+                gap: 6px;
+            }
+
+            .Play {
+                width: 16px;
+                height: 16px;
+            }
+        }
+
+        /* للأجهزة الصغيرة جداً (مثل الهواتف القديمة أو النحيفة) */
+        @media (max-width: 360px) {
+            header {
+                padding: 10px 8px;
+            }
+            .download-btn-black {
+                padding: 6px 10px;
+                font-size: 11px;
+            }
+            .Logo {
+                height: 38px;
             }
         }
     </style>
@@ -304,7 +360,7 @@
 1 - يُحظر تماماً نشر أو تداول أي محتوى إباحي أو مخصص للبالغين (+18) أو يخدش الحياء العام.
 2 - يُمنع استخدام المنصة لأغراض التعارف، أو الترويج للسهرات، أو أي أنشطة غير لائقة أخلاقياً.
 3 - يُحظر الترويج لألعاب القمار، أو المراهنات، أو أي أنشطة مشابهة بهدف النصب والاحتيال.
-4 - يُمنع منعاً باتاً استخدام المنصة للتهديد، أو الابتزاز, أو النصب، أو القيام بأي عمليات احتيالية.
+4 - يُمنع منعاً باتاً استخدام المنصة للتهديد، أو الابتزاز، أو النصب، أو القيام بأي عمليات احتيالية.
 5 - يُحظر التزوير، أو نشر معلومات مضللة، أو التلاعب بالحقائق بهدف الخداع والغش.
 6 - يُمنع نشر أي محتوى إرهابي، أو متطرف، أو يحرض على العنف والكراهية.
 7 - يُحظر الإساءة إلى الأديان، أو المعتقدات، أو الرموز الدينية بأي شكل من الأشكال.
@@ -333,7 +389,6 @@
     let currentMatchIndex = -1;
     let totalMatches = [];
 
-    // 1. منطق البحث وتحديد الكلمات فورياً أثناء الكتابة
     searchInput.addEventListener('input', function() {
         const textToSearch = this.value.trim();
         
@@ -362,7 +417,6 @@
         }
     });
 
-    // 2. منطق زر البحث للذهاب مباشرة للنتيجة التالية عند الضغط عليه
     searchBtn.addEventListener('click', function(e) {
         e.preventDefault();
         
@@ -395,7 +449,6 @@
         return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     }
 
-    // 3. برمجة المنيو للانتقال السلس للأقسام
     const menuDropdown = document.getElementById('menuDropdown');
     menuDropdown.addEventListener('change', function() {
         const targetId = this.value;
@@ -409,7 +462,6 @@
         }
     });
 
-    // 4. حركات زر التحميل التفاعلية
     const btn = document.getElementById("downloadBtn");
     btn.addEventListener("mousedown", () => { btn.style.transform = "scale(0.96)"; });
     btn.addEventListener("mouseup", () => { btn.style.transform = "scale(1)"; });
